@@ -1,5 +1,11 @@
-const multer = require("multer")
-const path = require("path")
+import multer from "multer"
+import path from "path"
+
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 let storage = multer.diskStorage({
     destination: (request, file, callback) => {
@@ -12,7 +18,7 @@ let storage = multer.diskStorage({
 
 let uploadFiles = multer({ storage: storage }).array("files", 10)
 
-const makeUpload = async (request, response, next) => {
+export const makeUpload = async (request, response, next) => {
     try{
         uploadFiles(request, response, (err) => {
             let uploadedFilesNames = []
@@ -28,10 +34,6 @@ const makeUpload = async (request, response, next) => {
             next()
         })
     }catch(error){
-        return response.end(`Erro catched on make upload: ${error}`)
+        return response.end(`Error catched on make upload: ${error}`)
     }
-}
-
-module.exports = {
-    makeUpload
 }

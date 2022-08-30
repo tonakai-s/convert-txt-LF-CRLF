@@ -1,13 +1,14 @@
-const express = require('express');
-const path = require('path');
+import { Router } from 'express'
+import path from 'path'
 
-const router = express.Router()
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
-router.get('/', function(request, response) {
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const router = Router()
+
+export default router.get('/', function(request, response) {
   response.sendFile(path.join(__dirname, '/../views/index.html'));
 })
-
-
-module.exports = {
-    homeRouter: router
-}

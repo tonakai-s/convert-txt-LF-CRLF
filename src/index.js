@@ -1,11 +1,11 @@
-const bodyParser = require("body-parser")
-const cors = require("cors")
-const express = require("express")
+import bodyParser from "body-parser"
+import cors from "cors"
+import Express from "express"
 
-const { filesRouter } = require("./routes/files.js")
-const { homeRouter } = require("./routes/sendFilesForm.js")
+import filesRouter from "./routes/files.js"
+import homeRouter from "./routes/sendFilesForm.js"
 
-const APP = express();
+const APP = Express();
 const PORT = process.env.PORT || 3000
 
 APP.use(bodyParser.urlencoded({

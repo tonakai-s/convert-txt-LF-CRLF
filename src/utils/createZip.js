@@ -1,7 +1,7 @@
-const AdmZip = require("adm-zip")
-const { exec } = require("child_process")
+import AdmZip from "adm-zip"
+import { exec } from "child_process"
 
-const createZipArchive = (folderName, convertedFilesNames) => {
+export const createZipArchive = (folderName, convertedFilesNames) => {
     return new Promise((resolve, reject) => {
         exec(`echo %cd%`, (error, rootPath, stderr) => {
             if(error){
@@ -26,8 +26,4 @@ const createZipArchive = (folderName, convertedFilesNames) => {
             return resolve(outputFile)
         })
     })
-}
-
-module.exports = {
-    createZipArchive
 }
