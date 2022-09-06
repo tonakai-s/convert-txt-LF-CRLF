@@ -1,6 +1,8 @@
 import { exec } from "child_process"
 
 import { createZipArchive } from "../utils/createZip.js"
+
+import { runExecConvertLinux } from "../utils/linux/execFileConverstionLin.js"
 import { runExecConvertWindows } from "../utils/windows/execFileConverstionWin.js"
 
 async function asyncForEach(array, callback) {
@@ -26,12 +28,20 @@ export const convertUploadedFiles = async (request, response, next) => {
         let index = 0;
         asyncForEach(uploadedFilesNames, async (fileToConvert) => {
             try{
-                await runExecConvertWindows(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
-                if(index === uploadedFilesNames.length - 1){
-                    request.zipFile = await createZipArchive(folderName, convertedFilesNames)
-                    request.myTest = "Teste"
-                    request.folderName = folderName
-                    next()
+                if(process.env.OS && process.env.OS.toUpperCase().contains('WINDOW')){
+                    await runExecConvertWindows(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
+                    if(index === uploadedFilesNames.length - 1){
+                        request.zipFile = await createZipArchive(folderName, convertedFilesNames)
+                        request.folderName = folderName
+                        next()
+                    }
+                } else {
+                    await runExecConvertLinux(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
+                    if(index === uploadedFilesNames.length - 1){
+                        request.zipFile = await createZipArchive(folderName, convertedFilesNames)
+                        request.folderName = folderName
+                        next()
+                    }
                 }
                 index++
             } catch(error){
