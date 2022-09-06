@@ -1,29 +1,12 @@
-import util from "util"
 import { exec } from "child_process"
 
 import { createZipArchive } from "../utils/createZip.js"
-
-const asyncExec = util.promisify(exec)
+import { runExecConvertWindows } from "../utils/windows/execFileConverstionWin.js"
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
         await callback(array[index], index, array)
     }
-}
-
-const runExec = (folderName, fileToConvert) => {
-    return new Promise((resolve, reject) => {
-        asyncExec(`cd ./src/user-folders/uploads/ && TYPE "${fileToConvert}" | FIND "" /V > ../converted/${folderName}/"NEW_${fileToConvert}"`,
-            (error, stdout, stderr) => {
-                if (error) {
-                    return reject(`Ocorreu um erro ao converter o arquivo ${fileToConvert}: ${error.message}`)
-                }
-                if (stderr) {
-                    return reject(`Ocorreu um erro ao converter o arquivo ${fileToConvert}: ${stderr}`)
-                }
-                return resolve(`NEW_${fileToConvert}`)
-            })
-    })
 }
 
 export const convertUploadedFiles = async (request, response, next) => {
@@ -43,7 +26,7 @@ export const convertUploadedFiles = async (request, response, next) => {
         let index = 0;
         asyncForEach(uploadedFilesNames, async (fileToConvert) => {
             try{
-                await runExec(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
+                await runExecConvertWindows(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
                 if(index === uploadedFilesNames.length - 1){
                     request.zipFile = await createZipArchive(folderName, convertedFilesNames)
                     request.myTest = "Teste"

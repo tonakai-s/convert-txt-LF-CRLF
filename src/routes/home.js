@@ -9,6 +9,6 @@ const __dirname = dirname(__filename)
 
 const router = Router()
 
-export default router.get('/', function(request, response) {
+export default router.get('/crlf-convert', function(request, response) {
   response.sendFile(path.join(__dirname, '/../views/index.html'));
 })

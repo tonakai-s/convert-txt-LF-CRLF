@@ -7,8 +7,9 @@ import * as path from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-import filesRouter from "./routes/files.js"
-import homeRouter from "./routes/sendFilesForm.js"
+import filesRouter from "./routes/convertAndSend.js"
+import homeRouter from "./routes/home.js"
+import redirectHome from "./routes/redirect.js"
 
 const APP = Express();
 const PORT = process.env.PORT || 3000
@@ -21,7 +22,8 @@ APP.use(cors())
 APP.use(Express.static(path.join(__dirname, 'public')))
 
 APP.use("/files", filesRouter)
-APP.use(homeRouter)
+APP.use("/files", homeRouter)
+APP.use(redirectHome)
 
 APP.listen(PORT, () => {
     console.log(`Server running at port ${PORT}`)
