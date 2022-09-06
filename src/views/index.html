@@ -4,13 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Convert document</title>
+
+    <link rel="stylesheet" href="/global.css" type="text/css">
+    <link rel="stylesheet" href="/reset.css" type="text/css">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
 </head>
-<body>
-    <form action="http://172.16.28.21:3000/files/convert-files" method="POST" enctype="multipart/form-data">
-        <label for="files">Insira aqui seus arquivos:</label>
-        <input multiple="multiple" type="file" id="files" name="files">
-        <button type="submit">Enviar para conversao</button>
-    </form>
+<body class="d-flex align-center justify-center">
+    <div class="container d-flex direction-column align-center">
+        <p>Não sabe o que são arquivos LF e CRLF? <a href="https://www.ibm.com/docs/pt-br/elm/6.0.5?topic=workspace-specifying-line-termination-characters-text-files" target="_blank">Clique aqui.</a></p>
+        <h1>Converter arquivos texto LF para CRLF</h1>
+        <form class="d-flex direction-column align-center" action="https://ancient-brook-94541.herokuapp.com/files/convert-files" method="POST" enctype="multipart/form-data">
+            <label class="files-label">
+                <input multiple="multiple" type="file" id="files" name="files" required="requires" accept="text/plain" />
+                <span>Escolha seus arquivos *^.^*</span>
+            </label>
+            <button type="submit">Enviar para conversao</button>
+        </form>
+        <div id="selected-files-list">
+            <p></p>
+            <ul id="list">
+
+            </ul>
+        </div>
+    </div>
+    <script src="/script.js"></script>
 </body>
 </html>

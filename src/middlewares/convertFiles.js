@@ -1,6 +1,9 @@
-const util = require("util")
-const exec = util.promisify(require("child_process").exec)
-const { createZipArchive } = require("../utils/createZip.js")
+import util from "util"
+import { exec } from "child_process"
+
+import { createZipArchive } from "../utils/createZip.js"
+
+const asyncExec = util.promisify(exec)
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
@@ -10,7 +13,7 @@ async function asyncForEach(array, callback) {
 
 const runExec = (folderName, fileToConvert) => {
     return new Promise((resolve, reject) => {
-        exec(`cd ./src/user-folders/uploads/ && TYPE "${fileToConvert}" | FIND "" /V > ../converted/${folderName}/"NEW_${fileToConvert}"`,
+        asyncExec(`cd ./src/user-folders/uploads/ && TYPE "${fileToConvert}" | FIND "" /V > ../converted/${folderName}/"NEW_${fileToConvert}"`,
             (error, stdout, stderr) => {
                 if (error) {
                     return reject(`Ocorreu um erro ao converter o arquivo ${fileToConvert}: ${error.message}`)
@@ -23,15 +26,15 @@ const runExec = (folderName, fileToConvert) => {
     })
 }
 
-const convertUploadedFiles = async (request, response, next) => {
+export const convertUploadedFiles = async (request, response, next) => {
     try {
         let folderName = Date.now().toString()
         exec(`cd ./src/user-folders/converted/ && mkdir ${folderName}`, (error, stdout, stderr) => {
             if (error) {
-                return next("Erro ao criar diretório em Converted: " + error.message)
+                return next("Erro ao criar diretï¿½rio em Converted: " + error.message)
             }
             if (stderr) {
-                return next("Stderr ao criar diretório em Converted: " + stderr)
+                return next("Stderr ao criar diretï¿½rio em Converted: " + stderr)
             }
         })
 
@@ -55,8 +58,4 @@ const convertUploadedFiles = async (request, response, next) => {
     } catch (error) {
         return next(`Ocorreu um erro inesperado: ${error}`)
     }
-}
-
-module.exports = {
-    convertUploadedFiles
 }

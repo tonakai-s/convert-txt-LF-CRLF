@@ -1,0 +1,100 @@
+:root{
+    --dark-purple: #180e26;
+    --light-purple: #bdb1c6;
+}
+
+body{
+    background-color: var(--dark-purple);
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.d-flex{
+    display: flex;
+}
+.justify-center{
+    justify-content: center;
+}
+.align-center{
+    align-items: center;
+}
+.direction-column{
+    flex-direction: column;
+}
+
+.containter{
+    width: 400px;
+}
+
+.container > p{
+    color: var(--light-purple);
+}
+
+a{
+    color: var(--light-purple);
+}
+
+label{
+    color: var(--light-purple);
+}
+h1{
+    color: var(--light-purple);
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+}
+label, input, button{
+    margin-bottom: 15px;
+}
+label.files-label input[type="file"]{
+    position: absolute;
+    top: -1000px;
+}
+label{
+    background-color: var(--light-purple);
+    color: var(--dark-purple);
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: .5s;
+    border: 1px solid var(--dark-purple)
+}
+label:hover {
+    background-color: var(--dark-purple);
+    color: var(--light-purple);
+    border: 1px solid var(--light-purple)
+}
+button{
+    border: 1px solid var(--light-purple);
+    background-color: var(--dark-purple);
+    border-radius: 5px;
+    color: var(--light-purple);
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 17px;
+    padding: 9px 16px;
+    transition: .5s;
+}
+button:hover{
+    border: 1px solid var(--dark-purple);
+    background-color: var(--light-purple);
+    color: var(--dark-purple);
+}
+
+#selected-files-list{
+    color: var(--light-purple);
+}
+
+#selected-files-list > p{
+    text-decoration: underline;
+}
+
+#list{
+    list-style-type: none;
+    padding: 0;
+}
+#list > li {
+    margin-bottom: 3px;
+}

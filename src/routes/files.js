@@ -1,16 +1,13 @@
-const fs = require("fs")
-const express = require("express")
-const router = express.Router()
+import fs from "fs"
+import { Router } from "express"
 
-const { makeUpload } = require("../middlewares/uploadFiles.js")
-const { convertUploadedFiles } = require("../middlewares/convertFiles.js")
+import { makeUpload } from "../middlewares/uploadFiles.js"
+import { convertUploadedFiles } from "../middlewares/convertFiles.js"
 
-router.post("/convert-files", makeUpload, convertUploadedFiles, (request, response, next) => {
+const router = Router()
+
+export default router.post("/convert-files", makeUpload, convertUploadedFiles, (request, response, next) => {
     const fileReadStream = fs.createReadStream(`${request.zipFile}`)
     response.setHeader('Content-disposition', `attachment; filename=${request.folderName}.zip`)
     fileReadStream.pipe(response)
 })
-
-module.exports = {
-    filesRouter: router
-}
