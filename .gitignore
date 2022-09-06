@@ -104,3 +104,6 @@ dist
 .tern-port
 
 #User files
+src/user-folders/converted/*
+src/user-folders/uploads/*
+src/user-folders/zippedFiles/*

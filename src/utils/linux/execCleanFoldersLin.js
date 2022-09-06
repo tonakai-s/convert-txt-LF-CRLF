@@ -1,13 +1,13 @@
 import { exec } from "child_process"
 
-export const cleanConvertedUploadFoldersWin = (folderName, uploadedFilesNames) => {
+export const cleanConvertedUploadFoldersLin = (folderName, uploadedFilesNames) => {
     let delQuery = ''
     uploadedFilesNames.forEach(uploadedFile => {
         delQuery += `\"${uploadedFile}\" `
     })
 
     try{
-        exec(`cd ./src/user-folders/uploads/ && del ${delQuery}`,
+        exec(`cd ./src/user-folders/uploads/ && rm ${delQuery}`,
         (error, stdout, stderr) => {
             if(error){
                 return `Error on delete files on uploads folder: ${error}`
@@ -21,7 +21,7 @@ export const cleanConvertedUploadFoldersWin = (folderName, uploadedFilesNames) =
     }
 
     try{
-        exec(`cd ./src/user-folders/converted/ && rmdir /s /q ${folderName}`,
+        exec(`cd ./src/user-folders/converted/ && rm -rf ${folderName}`,
         (error, stdout, stderr) => {
             if(error){
                 return `Error on delete files on converted folder: ${error}`

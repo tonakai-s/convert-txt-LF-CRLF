@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": "^16.13.1"
+    "node": ">=16.13.1"
   },
   "repository": "https://github.com/suicideDuck22/convert-txt-LF-CRLF",
   "author": "Renan Dorneles Schuquel <rdorneles64@gmail.com>",
