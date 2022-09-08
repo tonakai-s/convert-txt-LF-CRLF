@@ -14,7 +14,8 @@ export default router.post("/crlf-convert", makeUpload, convertUploadedFiles, (r
     response.setHeader('Content-disposition', `attachment; filename=${request.folderName}.zip`)
     fileReadStream.pipe(response)
 
-    if(process.env.OS && process.env.OS.toUpperCase().contains('WINDOW')){
+    const OSenv = process.env.OS
+    if(OSenv && OSenv.toUpperCase().includes('WINDOW')){
         cleanConvertedUploadFoldersWin(request.folderName, request.uploadedFilesNames)
     } else {
         cleanConvertedUploadFoldersLin(request.folderName, request.uploadedFilesNames)

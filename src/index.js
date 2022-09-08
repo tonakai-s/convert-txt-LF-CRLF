@@ -11,6 +11,8 @@ import filesRouter from "./routes/convertAndSend.js"
 import homeRouter from "./routes/home.js"
 import redirectHome from "./routes/redirect.js"
 
+console.log(process.env)
+
 const APP = Express();
 const PORT = process.env.PORT || 3000
 

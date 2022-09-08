@@ -28,7 +28,8 @@ export const convertUploadedFiles = async (request, response, next) => {
         let index = 0;
         asyncForEach(uploadedFilesNames, async (fileToConvert) => {
             try{
-                if(process.env.OS && process.env.OS.toUpperCase().contains('WINDOW')){
+                const OSEnv = process.env.OS
+                if(OSEnv && OSEnv.toUpperCase().includes('WINDOW')){
                     await runExecConvertWindows(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
                     if(index === uploadedFilesNames.length - 1){
                         request.zipFile = await createZipArchive(folderName, convertedFilesNames)

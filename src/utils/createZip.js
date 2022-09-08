@@ -2,7 +2,8 @@ import AdmZip from "adm-zip"
 import { exec } from "child_process"
 
 export const createZipArchive = (folderName, convertedFilesNames) => {
-    if(process.env.OS && process.env.OS.toUpperCase().contains('WINDOW')){
+    const OSenv = process.env.OS
+    if(OSenv && OSenv.toUpperCase().includes('WINDOW')){
         return new Promise((resolve, reject) => {
             exec(`echo %cd%`, (error, rootPath, stderr) => {
                 if(error){
