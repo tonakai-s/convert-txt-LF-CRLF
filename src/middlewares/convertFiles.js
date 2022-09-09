@@ -33,6 +33,7 @@ export const convertUploadedFiles = async (request, response, next) => {
                     await runExecConvertWindows(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
                     if(index === uploadedFilesNames.length - 1){
                         request.zipFile = await createZipArchive(folderName, convertedFilesNames)
+                        request.convertedFilesNames = convertedFilesNames
                         request.folderName = folderName
                         next()
                     }
@@ -40,6 +41,7 @@ export const convertUploadedFiles = async (request, response, next) => {
                     await runExecConvertLinux(folderName, fileToConvert).then(convertedFileName => { convertedFilesNames.push(convertedFileName) })
                     if(index === uploadedFilesNames.length - 1){
                         request.zipFile = await createZipArchive(folderName, convertedFilesNames)
+                        request.convertedFilesNames = convertedFilesNames
                         request.folderName = folderName
                         next()
                     }

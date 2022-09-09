@@ -19,3 +19,33 @@ document.getElementById('files').addEventListener('change', (e) => {
         filesList.appendChild(li)
     }
 })
+
+const sendFilesToConversion = async () => {
+    const fileInput = document.getElementById('files')
+    const formData = new FormData()
+
+    formData.append('files', fileInput.files[0])
+
+    const options = {
+        method: 'POST',
+        body: formData,
+    }
+
+    const response = await fetch('http://localhost:3000/files/crlf-convert', options)
+    const data = await response.json()
+
+    const div = document.createElement('div')
+    let content = ""
+    const {files, folder} = data
+    files.map(file => { content += `<button onclick="fetchFile('${folder.replace('.zip', '')}/${encodeURI(file)}')" class="download-btn">${file}<span></span></button>` })
+    content += `<button class="download-btn">Baixar todos<span></span></button>`
+    div.innerHTML = content
+    document.querySelector('div.container').appendChild(div)
+}
+
+const fetchFile = async (filename) => {
+    const options = {
+        method: 'POST'
+    }
+    fetch(`http://localhost:3000/files/crlf-convert/file/${filename}`, options)
+}

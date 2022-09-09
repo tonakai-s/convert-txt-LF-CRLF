@@ -10,8 +10,7 @@ const __dirname = path.dirname(__filename)
 import filesRouter from "./routes/convertAndSend.js"
 import homeRouter from "./routes/home.js"
 import redirectHome from "./routes/redirect.js"
-
-console.log(process.env)
+import fileDownloadRouter from "./routes/fileDownload.js"
 
 const APP = Express();
 const PORT = process.env.PORT || 3000
@@ -25,6 +24,7 @@ APP.use(Express.static(path.join(__dirname, 'public')))
 
 APP.use("/files", filesRouter)
 APP.use("/files", homeRouter)
+APP.use("/files", fileDownloadRouter)
 APP.use(redirectHome)
 
 APP.listen(PORT, () => {

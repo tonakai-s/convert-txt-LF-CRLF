@@ -10,14 +10,15 @@ import { cleanConvertedUploadFoldersLin } from "../utils/linux/execCleanFoldersL
 const router = Router()
 
 export default router.post("/crlf-convert", makeUpload, convertUploadedFiles, (request, response, next) => {
-    const fileReadStream = fs.createReadStream(`${request.zipFile}`)
-    response.setHeader('Content-disposition', `attachment; filename=${request.folderName}.zip`)
-    fileReadStream.pipe(response)
+    response.status(200).send({
+        files: request.convertedFilesNames,
+        folder: request.zipFile
+    })
 
     const OSenv = process.env.OS
     if(OSenv && OSenv.toUpperCase().includes('WINDOW')){
-        cleanConvertedUploadFoldersWin(request.folderName, request.uploadedFilesNames)
+        cleanConvertedUploadFoldersWin(request.uploadedFilesNames)
     } else {
-        cleanConvertedUploadFoldersLin(request.folderName, request.uploadedFilesNames)
+        cleanConvertedUploadFoldersLin(request.uploadedFilesNames)
     }
 })

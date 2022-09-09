@@ -25,7 +25,7 @@ export const createZipArchive = (folderName, convertedFilesNames) => {
                     zip.addLocalFile(`${newRootPath}/src/user-folders/converted/${folderName}/${convertedFile}`)
                 })
                 zip.writeZip(outputFile)
-                return resolve(outputFile)
+                return resolve(folderName)
             })
         })
     } else {
@@ -36,7 +36,7 @@ export const createZipArchive = (folderName, convertedFilesNames) => {
                     zip.addLocalFile(`${process.env.INIT_CWD}/src/user-folders/converted/${folderName}/${convertedFile}`)
                 })
                 zip.writeZip(outputFile)
-                return resolve(outputFile)
+                return resolve(folderName)
         })
     }
 }
