@@ -45,7 +45,7 @@ h1{
     font-weight: bold;
     margin: 0 0 8px 0;
 }
-label, input, button{
+label, input, #send-files-button{
     margin-bottom: 15px;
 }
 label.files-label input[type="file"]{
@@ -66,7 +66,7 @@ label:hover {
     color: var(--light-purple);
     border: 1px solid var(--light-purple)
 }
-button{
+#send-files-button{
     border: 1px solid var(--light-purple);
     background-color: var(--dark-purple);
     border-radius: 5px;
@@ -77,7 +77,7 @@ button{
     padding: 9px 16px;
     transition: .5s;
 }
-button:hover{
+#send-files-button:hover{
     border: 1px solid var(--dark-purple);
     background-color: var(--light-purple);
     color: var(--dark-purple);
@@ -97,4 +97,31 @@ button:hover{
 }
 #list > li {
     margin-bottom: 3px;
+}
+
+h4{
+    font-weight: 800;
+    color: var(--light-purple);
+    font-size: 20px;
+}
+
+.download-btn{
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    padding: 6px 10px;
+    background-color: var(--dark-purple);
+    color: var(--light-purple);
+    font-weight: 800;
+    border-bottom: 3px solid var(--light-purple);
+    cursor: pointer;
+}
+
+.download-icon{
+    margin-left: 3px;
+    display: block;
+    background: url('/assets/download-icon.svg');
+    background-size: contain;
+    width: 17px;
+    height: 17px;
 }
